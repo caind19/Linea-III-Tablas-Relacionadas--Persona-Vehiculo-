@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 import com.example.tablas.Model.User
 
 @Dao
@@ -19,7 +18,7 @@ interface UserDao {
     @Query("DELETE FROM users WHERE id = :userId")
     suspend fun deleteById(userId: Int): Int
 
-        @Query("""
+    @Query("""
         UPDATE users
         SET 
             nombre = COALESCE(:nombre, nombre), 
@@ -27,10 +26,5 @@ interface UserDao {
             edad = COALESCE(:edad, edad)
         WHERE id = :userId
     """)
-        suspend fun updateUser(userId: Int, nombre: String?, apellido: String?, edad: Int?): Int
-
-    @Transaction // Asegura la consistencia de datos en las uniones
-    @Query("SELECT * FROM users WHERE id = :userId")
-    suspend fun getUserWithVehicle(userId: Int): UserWithVehicle
-    }
-
+    suspend fun updateUser(userId: Int, nombre: String?, apellido: String?, edad: Int?): Int
+}

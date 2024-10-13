@@ -1,7 +1,6 @@
 package com.example.tablas.Repository
 
 import com.example.tablas.DAO.UserDao
-import com.example.tablas.DAO.UserWithVehicle
 import com.example.tablas.Model.User
 
 class UserRepository(private val userDao: UserDao) {
@@ -22,10 +21,6 @@ class UserRepository(private val userDao: UserDao) {
     }*/
 
     suspend fun updateUser(userId: Int, nombre: String?, apellido: String?, edad: Int?): Int {
-            return userDao.updateUser(userId, nombre, apellido, edad)
-    }
-
-    suspend fun getUserWithVehicle(userId: Int): UserWithVehicle {
-        return userDao.getUserWithVehicle(userId)
+        return userDao.updateUser(userId, nombre, apellido, edad)
     }
 }

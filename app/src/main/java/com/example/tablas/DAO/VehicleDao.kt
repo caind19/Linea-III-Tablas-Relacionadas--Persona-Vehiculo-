@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 import com.example.tablas.Model.Vehicle
 
 @Dao
@@ -14,9 +13,9 @@ interface VehicleDao {
     suspend fun insert(vehicle: Vehicle)
 
     @Query("SELECT * FROM vehicles")
-    suspend fun getAllVehicles(): List<Vehicle>
+    suspend fun getAllVehicles():List<Vehicle>
 
-    @Query("DELETE FROM vehicles WHERE id = :vehicleId")
+    @Query("DELETE FROM users WHERE id = :vehicleId")
     suspend fun deleteById(vehicleId: Int): Int
 
     @Query("""
@@ -28,8 +27,4 @@ interface VehicleDao {
         WHERE id = :vehicleId
     """)
     suspend fun updateVehicle(vehicleId: Int, marca: String?, modelo: String?, caballos: Int?): Int
-
-    @Transaction
-    @Query("SELECT * FROM vehicles WHERE id = :vehicleId")
-    suspend fun getVehicleWithUser(vehicleId: Int): VehicleWithUser
 }
